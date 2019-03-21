@@ -14,6 +14,7 @@ namespace Presentation.Web.Controllers
     public class TodoListsController : ControllerBase
     {
         private IRepository<TodoList> _repo;
+        private object t;
 
         public TodoListsController(IRepository<TodoList> repo)
         {
@@ -72,8 +73,8 @@ namespace Presentation.Web.Controllers
         {
             var list = _repo.Get(Id);
             return
-                list.Todos.Select(t => new TodoDisplay() { id = t.id; Title = t.Title; Completed = t.Complete });
-            ;
+                list.Todos.Select(t => new TodoDisplay() { id = t.id; Title = t.Title; Completed = t.Complete }
+            
         }
     }
 }
