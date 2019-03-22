@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Web.WebPages.OAuth;
 using Presentation.Web.Models;
 
-namespace Presentation.Web
+namespace Microsoft.Web.WebPages.OAuth
 {
     public static class AuthConfig
     {
@@ -22,11 +22,11 @@ namespace Presentation.Web
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            OAuthWebSecurity.RegisterFacebookClient(
+                appId: "385201985365413",
+                appSecret: "73ef8234f3974538492798aa09df81b9");
 
-            //OAuthWebSecurity.RegisterGoogleClient();
+            OAuthWebSecurity.RegisterGoogleClient();
         }
     }
 }

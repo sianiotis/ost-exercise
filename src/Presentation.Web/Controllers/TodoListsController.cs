@@ -25,11 +25,11 @@ namespace Presentation.Web.Controllers
         {
             var todos = _repo.FindBy(x => x.Owner == LoadUser());
             var displays = todos.Select(x => new TodoListDisplay()
-                {
-                    Name = x.Name,
-                    Id = x.Id,
-                    Todos = x.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed }).ToList()
-                }).ToList();
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Todos = x.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed }).ToList()
+            }).ToList();
             return displays;
         }
 
@@ -38,10 +38,10 @@ namespace Presentation.Web.Controllers
         public HttpResponseMessage Post(TodoListInput list)
         {
             var entity = new TodoList()
-                {
-                    Name = list.Name,
-                    Owner = LoadUser()
-                };
+            {
+                Name = list.Name,
+                Owner = LoadUser()
+            };
             _repo.Store(entity);
             return Request.CreateResponse(HttpStatusCode.OK, new TodoListDisplay() { Name = entity.Name, Id = entity.Id });
         }
@@ -72,7 +72,7 @@ namespace Presentation.Web.Controllers
         {
             var list = _repo.Get(Id);
             return
-                list.Todos.Select(t => new TodoDisplay() { id = t.id; Title = t.Title; Completed = t.Complete });
+                list.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed });
             ;
         }
     }

@@ -22,10 +22,10 @@ namespace Core.Domain.Model.Users
             return list;
         }
 
-        public virtual void HashPassword()
+        public virtual string HashPassword()
         {
             var salt = BCryptHelper.GenerateSalt(10);
-            Password = BCryptHelper.HashPassword(Password, salt);
+            return Password = BCryptHelper.HashPassword(Password, salt);
         }
 
         public virtual bool IsAuthenticated(string password)
