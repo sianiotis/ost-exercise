@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+//using System.Web.Mvc;
 using Core.Domain.Model;
 using Core.Domain.Model.TodoLists;
 using Core.Domain.Model.Todos;
@@ -71,9 +72,13 @@ namespace Presentation.Web.Controllers
         public IEnumerable<TodoDisplay> Todos(long Id)
         {
             var list = _repo.Get(Id);
-            return
-                list.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed });
+            return list.Todos.Select(t => new TodoDisplay() {Id = t.Id, Title = t.Title, Completed = t.Completed });
             ;
         }
+        
+
+
+
+
     }
 }
