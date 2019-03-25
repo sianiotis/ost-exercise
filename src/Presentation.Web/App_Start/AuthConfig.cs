@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Web.WebPages.OAuth;
 using Presentation.Web.Models;
 
-namespace Microsoft.Web.WebPages.OAuth
+namespace Presentation.Web
 {
     public static class AuthConfig
     {
