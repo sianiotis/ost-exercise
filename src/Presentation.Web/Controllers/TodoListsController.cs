@@ -29,7 +29,7 @@ namespace Presentation.Web.Controllers
             {
                 Name = x.Name,
                 Id = x.Id,
-                Todos = x.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed }).ToList()
+                Todos = x.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed, Position = t.Position }).OrderBy(t => t.Position).ToList()
             }).ToList();
             return displays;
         }
@@ -60,11 +60,11 @@ namespace Presentation.Web.Controllers
         [HttpPost]
         public HttpResponseMessage Todos(long Id, TodoInput todoInput)
         {
-            var todo = new Todo() { Title = todoInput.Title, Completed = false };
             var list = _repo.Get(Id);
+            var todo = new Todo() { Title = todoInput.Title, Completed = false, Position = list.Todos.Count };
             list.AddTodo(todo);
             _repo.Store(list);
-            return Request.CreateResponse(HttpStatusCode.OK, new TodoDisplay { Title = todoInput.Title, Id = todo.Id, Completed = false });
+            return Request.CreateResponse(HttpStatusCode.OK, new TodoDisplay { Title = todoInput.Title, Id = todo.Id, Completed = false, Position = todo.Position });
         }
 
         [Authorize]
@@ -72,29 +72,10 @@ namespace Presentation.Web.Controllers
         public IEnumerable<TodoDisplay> Todos(long Id)
         {
             var list = _repo.Get(Id);
-            return list.Todos.Select(t => new TodoDisplay() {Id = t.Id, Title = t.Title, Completed = t.Completed });
+            return list.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed, Position = t.Position }).ToList();
             ;
         }
 
-        //[Authorize]
-        //[HttpGet]
-        //public IEnumerable<TodoDisplay> SortById(long Id)
-        //{
-        //    var list = _repo.Get(Id);
-        //    list.Todos.OrderBy(t => t.Id);
-        //    return list.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed });
-        //    ;
-        //}
-
-        //[HttpPost]
-        //public System.Web.Mvc.ActionResult GetActionResult(long Id, string OrderBy)
-        //{
-        //    var list = _repo.Get(Id);
-        //    list.OrderBy(t => t.Id);
-        //    return View();
-        //}
-
-
-
+   
     }
 }

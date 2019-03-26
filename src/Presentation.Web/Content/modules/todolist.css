@@ -1,6 +1,6 @@
 ﻿.todolist .todos {
-    margin-left: 0;
-    padding-left: 0;
+    margin-left: 10px;
+    padding-left: 15px;
     list-style: none;
 }
 
@@ -8,6 +8,7 @@
         cursor: pointer;
         position: relative;
         left: 5px;
+        top: 8px;
     }
 
 .todolist .todolist-title i {
