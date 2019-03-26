@@ -1,34 +1,34 @@
 ﻿angular.module("todos.controllers", ["todos.services"]).
-    controller("LoginCtrl", ["$scope", "$http", "$location", function($scope, $http, $location) {
+    controller("LoginCtrl", ["$scope", "$http", "$location", function ($scope, $http, $location) {
 
-        $scope.login = function() {
+        $scope.login = function () {
             $http.post("/user/login", { Email: $scope.Email, Password: $scope.Password }).success(function () {
                 $location.path('/lists');
             });
         };
 
     }]).
-    controller("RegisterCtrl", ["$scope", "$http", "$location", function($scope, $http, $location) {
+    controller("RegisterCtrl", ["$scope", "$http", "$location", function ($scope, $http, $location) {
 
-        $scope.register = function() {
-            $http.post('/user/register', { Email: $scope.Email, Name: $scope.Name, Password: $scope.Password }).success(function() {
+        $scope.register = function () {
+            $http.post('/user/register', { Email: $scope.Email, Name: $scope.Name, Password: $scope.Password }).success(function () {
                 $location.path('/lists');
             });
         };
 
     }]).
-    controller("ListsCtrl", ["$scope", "TodoList", function($scope, TodoList) {
+    controller("ListsCtrl", ["$scope", "TodoList", function ($scope, TodoList) {
 
         var self = this;
 
-        $scope.$on('list:deleted', function() {
+        $scope.$on('list:deleted', function () {
             self.setLists();
         });
 
-        this.setLists = function() {
+        this.setLists = function () {
             TodoList.query(function (lists) {
                 var items = [], buffer = [];
-                lists.forEach(function(l, i) {
+                lists.forEach(function (l, i) {
                     buffer.push(l);
                     if ((i + 1) % 2 == 0 && i != 0 || i == lists.length - 1) {
                         items.push({ row: buffer });
@@ -40,8 +40,8 @@
         };
 
         this.setLists();
-        
-        $scope.addList = function() {
+
+        $scope.addList = function () {
             var todo = new TodoList({ Name: $scope.Name });
             todo.$save(function () {
                 $scope.$broadcast('list:added');
@@ -52,8 +52,8 @@
     }]).
     controller("ListCtrl", ["$scope", "ListTodo", "Todo", function ($scope, ListTodo, Todo) {
 
-        $scope.$on('todo:deleted', function() {
-            ListTodo.query({listId:$scope.list.Id}, function(todos) {
+        $scope.$on('todo:deleted', function () {
+            ListTodo.query({ listId: $scope.list.Id }, function (todos) {
                 $scope.list.Todos = todos;
             });
         });
@@ -69,7 +69,7 @@
 
         $scope.completed = function () {
             var count = 0;
-            angular.forEach($scope.list.Todos, function(todo) {
+            angular.forEach($scope.list.Todos, function (todo) {
                 count += todo.Completed ? 1 : 0;
             });
             return count;
@@ -81,7 +81,7 @@
             todo.deleting = true;
             Todo['delete']({ id: todo.Id }, {}, function () {
                 $scope.$emit('todo:deleted');
-            }, function() {
+            }, function () {
                 todo.deleting = false;
             });
         };
@@ -101,5 +101,27 @@
                 todo = new Todo(todo);
             todo.$update();
         };
+
+        //$scope.models = {
+        //    selected: null;
+        //    lists: {}
+        //}
+        //var dragSrcEl = null;
+        //$scope.dragStart = function (todo) {
+        //    dragSrcEl = this;
+        //    todo.dataTransfer.effectAllowed = 'move';
+        //    todo.dataTransfer.setData('text/html', this.outerHTML);
+
+        //    this.classList.add('dragElem');
+        //}
+
+        //$scope.handleDragOver = function (todo) {
+        //    if (todo.preventDefault) {
+
+        //        // This is necessary, as it allows us to drop 
+        //        todo.preventDefault();
+        //    }
+            
+        //}
 
     }]);

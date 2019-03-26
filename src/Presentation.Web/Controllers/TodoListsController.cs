@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+//using System.Web.Mvc;
 using Core.Domain.Model;
 using Core.Domain.Model.TodoLists;
 using Core.Domain.Model.Todos;
@@ -14,7 +15,6 @@ namespace Presentation.Web.Controllers
     public class TodoListsController : ControllerBase
     {
         private IRepository<TodoList> _repo;
-        private object t;
 
         public TodoListsController(IRepository<TodoList> repo)
         {
@@ -26,11 +26,11 @@ namespace Presentation.Web.Controllers
         {
             var todos = _repo.FindBy(x => x.Owner == LoadUser());
             var displays = todos.Select(x => new TodoListDisplay()
-                {
-                    Name = x.Name,
-                    Id = x.Id,
-                    Todos = x.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed }).ToList()
-                }).ToList();
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Todos = x.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed }).ToList()
+            }).ToList();
             return displays;
         }
 
@@ -39,10 +39,10 @@ namespace Presentation.Web.Controllers
         public HttpResponseMessage Post(TodoListInput list)
         {
             var entity = new TodoList()
-                {
-                    Name = list.Name,
-                    Owner = LoadUser()
-                };
+            {
+                Name = list.Name,
+                Owner = LoadUser()
+            };
             _repo.Store(entity);
             return Request.CreateResponse(HttpStatusCode.OK, new TodoListDisplay() { Name = entity.Name, Id = entity.Id });
         }
@@ -72,9 +72,29 @@ namespace Presentation.Web.Controllers
         public IEnumerable<TodoDisplay> Todos(long Id)
         {
             var list = _repo.Get(Id);
-            return
-                list.Todos.Select(t => new TodoDisplay() { id = t.id; Title = t.Title; Completed = t.Complete }
-            
+            return list.Todos.Select(t => new TodoDisplay() {Id = t.Id, Title = t.Title, Completed = t.Completed });
+            ;
         }
+
+        //[Authorize]
+        //[HttpGet]
+        //public IEnumerable<TodoDisplay> SortById(long Id)
+        //{
+        //    var list = _repo.Get(Id);
+        //    list.Todos.OrderBy(t => t.Id);
+        //    return list.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed });
+        //    ;
+        //}
+
+        //[HttpPost]
+        //public System.Web.Mvc.ActionResult GetActionResult(long Id, string OrderBy)
+        //{
+        //    var list = _repo.Get(Id);
+        //    list.OrderBy(t => t.Id);
+        //    return View();
+        //}
+
+
+
     }
 }
