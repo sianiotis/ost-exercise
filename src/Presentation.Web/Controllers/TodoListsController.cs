@@ -76,15 +76,15 @@ namespace Presentation.Web.Controllers
             ;
         }
 
-        [Authorize]
-        [HttpGet]
-        public IEnumerable<TodoDisplay> SortById(long Id)
-        {
-            var list = _repo.Get(Id);
-            list.Todos.OrderBy(t => t.Id);
-            return list.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed });
-            ;
-        }
+        //[Authorize]
+        //[HttpGet]
+        //public IEnumerable<TodoDisplay> SortById(long Id)
+        //{
+        //    var list = _repo.Get(Id);
+        //    list.Todos.OrderBy(t => t.Id);
+        //    return list.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed });
+        //    ;
+        //}
 
         //[HttpPost]
         //public System.Web.Mvc.ActionResult GetActionResult(long Id, string OrderBy)
