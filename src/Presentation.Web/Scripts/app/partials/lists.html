@@ -15,7 +15,7 @@
             <div ng-show="list.Todos.length > 0">
                 <h4 ng-hide="completed() == list.Todos.length">Not Done</h4>
                 <ul class="todos" dnd-list="list.Todos">
-                    <li ng-repeat="todo in list.Todos | incomplete" draggable="true" ng-controller="TodoCtrl" dnd-draggable="todo" dnd-moved="reorderList(list, $index)" dnd-effect-allowed="move" dnd-selected="Todos.selected = todo">
+                    <li ng-repeat="todo in list.Todos | incomplete" ng-controller="TodoCtrl" dnd-draggable="todo" dnd-moved="reorderList(list, $index)" dnd-effect-allowed="move" dnd-selected="Todos.selected = todo">
                         <label class="checkbox">
                             <input ng-click="markDone(todo)" type="checkbox" /> {{todo.Title}} <i ng-click="deleteTodo(todo)" title="Click to delete todo" class="icon-remove"></i>
                         </label>     
@@ -23,7 +23,7 @@
                 </ul>
                 <h4 ng-hide="completed() == 0">Done</h4>
                 <ul class="todos">
-                    <li ng-repeat="todo in list.Todos | complete" draggable="true" ng-controller="TodoCtrl">
+                    <li ng-repeat="todo in list.Todos | complete" ng-controller="TodoCtrl">
                         <label class="checkbox">
                             <input ng-click="markNotDone(todo)" type="checkbox" checked="checked" /> {{todo.Title}} <i ng-click="deleteTodo(todo)" title="Click to delete todo" class="icon-remove"></i>
                         </label>
