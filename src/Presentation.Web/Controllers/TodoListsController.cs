@@ -72,7 +72,11 @@ namespace Presentation.Web.Controllers
         public IEnumerable<TodoDisplay> Todos(long Id)
         {
             var list = _repo.Get(Id);
-            return list.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed, Position = t.Position }).ToList();
+            //_repo.Store(list);
+            var todo = new TodoList() { Name = list.Name, Owner = list.Owner };
+            _repo.Store(todo);
+            return 
+                list.Todos.Select(t => new TodoDisplay() { Id = t.Id, Title = t.Title, Completed = t.Completed, Position = t.Position }).ToList();
             ;
         }
 
