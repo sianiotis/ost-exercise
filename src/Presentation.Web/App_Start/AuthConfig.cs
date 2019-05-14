@@ -22,9 +22,9 @@ namespace Microsoft.Web.WebPages.OAuth
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            OAuthWebSecurity.RegisterFacebookClient(
-                appId: "385201985365413",
-                appSecret: "73ef8234f3974538492798aa09df81b9");
+            //OAuthWebSecurity.RegisterFacebookClient(
+            //    appId: "385201985365413",
+            //    appSecret: "73ef8234f3974538492798aa09df81b9");
 
             OAuthWebSecurity.RegisterGoogleClient();
         }

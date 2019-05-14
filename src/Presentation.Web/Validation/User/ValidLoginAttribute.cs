@@ -32,7 +32,11 @@ namespace Presentation.Web.Validation.User
             if (string.IsNullOrEmpty(email)) return null;
 
             var user = Repo.FindOneBy(u => u.Email == email);
+
+            if (user == null) return null;
+
             var input = context.ObjectInstance as LoginInput;
+
             if(user == null || ! user.IsAuthenticated(input.Password))
                 return new ValidationResult(Message);
 
