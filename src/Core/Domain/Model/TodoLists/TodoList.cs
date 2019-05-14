@@ -11,7 +11,8 @@ namespace Core.Domain.Model.TodoLists
         public virtual User Owner { get; set; }
 
         private ICollection<Todo> todos = new HashSet<Todo>();
-        public virtual ICollection<Todo> Todos { get { return todos; } set { todos = value; } }
+        public virtual ICollection<Todo> Todos { get { return todos; } set {
+                todos = value; } }
         
         public virtual Todo AddTodo(Todo todo)
         {
